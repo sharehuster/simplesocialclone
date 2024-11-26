@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -22,8 +23,7 @@
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
         <!-- link css created-->
-        {% comment %} <link rel="stylesheet" href="{% static "simplesocial/css/master.css" %}"> {% endcomment %}
-
+        <link rel="stylesheet" href="{% static 'simplesocial/css/master.css'%}">
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,11 +40,15 @@
                         <li><a href="#">Post</a></li>
                         <li><a href="#">Groups</a></li>
                         <li><a href="#">Create Group</a></li>
-                        <li><a href="{% url 'account:logout' %}">Log Out</a></li>
+                        {% comment %} <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>  cannot use a herf for log out{% endcomment %}
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Log Out</button>
+                        </form>
                     {% else %}
                         <li><a href="#">Groups</a></li>
-                        <li><a href="{% url 'account:login' %}">Log In</a></li>
-                        <li><a href="{% url 'account:signup' %}">Sign Up</a></li>
+                        <li><a href="{% url 'accounts:login' %}">Log In</a></li>
+                        <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
                     {% endif %}
                 </ul>
             </div>
